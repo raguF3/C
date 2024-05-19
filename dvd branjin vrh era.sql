@@ -28,7 +28,45 @@ Fotografije varchar (50),
 email int
 );
 
-
 alter table kontakt add foreign key (email) references događanja (sifra);
 alter table kontakt add foreign key (email) references korisnik (sifra);
 alter table korisnik add foreign key (email) references događanja (sifra);
+
+
+
+
+use dvd_branjin_vrh;
+go
+drop database if exists dječji_vrtić_crvenkapica;
+go
+create database dječji_vrtić_crvenkapica;
+go
+use dječji_vrtić_crvenkapica;
+go
+
+create table info (
+sifra int not null primary key identity (1,1),
+novosti varchar (1000) not null,
+galerija_fotografija varchar (50),
+broj_telefona int,
+email varchar (50)
+);
+
+
+create table prijava(
+sifra int not null primary key identity (1,1),
+ime varchar (50),
+prezime varchar (50),
+oib char (11),
+email varchar (50),
+polaznik int
+);
+
+create table polaznici (
+sifra int not null primary key identity (1,1),
+popis_polaznika int,
+odgojne_skupin varchar (50)
+);
+
+alter table polaznici add foreign key (popis_polaznika) references prijava (sifra);
+alter table info add foreign key (broj_telefona) references prijava (sifra);
